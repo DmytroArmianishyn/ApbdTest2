@@ -1,4 +1,5 @@
 ﻿    using ApbdT.Data;
+    using ApbdT.Dto;
     using ApbdT.Models;
     using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,14 @@
         public async Task<bool> DoesItemExist(int id)
         {
             return await _context.Items.AnyAsync(e => e.id == id);
-        } 
+        }
+
+        public async Task AddItem(IEnumerable<DtoAddBackPack> addBackPacks)
+        {
+            await _context.AddRangeAsync(addBackPacks);
+            await _context.SaveChangesAsync();
+            
+        }
 
        
               

@@ -1,6 +1,7 @@
 ﻿using Apbd_kolos2.Models;
 using ApbdT.Dto;
 using ApbdT.Service;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApbdT.Controllers;
@@ -46,22 +47,10 @@ public class CharacterController:ControllerBase
         }
 
         var character = await _service.GetCharacter(id);
-
-            var characterDto = new GetCharacterDto
-            {
-                FirstName = character.FirstName,
-                LastName = character.LastName,
-                CurrentWeight = character.CurrentWeight,
-                MaxWeight = character.MaxWeight,
-                Backpacks = character.Backpacks.Select(b => new GetBackpackDto
-                {
-                    Name = b.Item.Name,
-                    Weight = b.Item.Weight,
-                    amount = b.Amount
-                }).ToList()
-            };
-            characterDto.Backpacks.Add(new GetBackpackDto(characterDto.id,1,2));
-        }
+        
+            //characterDto.Backpacks.Add(new GetBackpackDto(characterDto.id,1,2));
+            return Ok();
+    }
 
     
 }
